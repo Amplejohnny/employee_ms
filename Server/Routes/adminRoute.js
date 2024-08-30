@@ -8,9 +8,9 @@ import path from "path";
 const router = express.Router();
 
 router.post("/adminregister", async (req, res) => {
-  const sql = "INSERT INTO admin (`email`, `password`) VALUES (?)";
-  if (!req.body.password) {
-    return res.json({ Status: false, Error: "Password is required" });
+  const sql = `INSERT INTO admin (email, password) VALUES (?)`;
+  if (!req.body.password || !req.body.email) {
+    return res.json({ Status: false, Error: "Please fill all the fields" });
   }
   try {
     const hash = await bcrypt.hash(req.body.password, 10);
@@ -62,7 +62,7 @@ router.post("/add_category", (req, res) => {
 // image upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "Public/Images");
+    cb(null, "public/Images");
   },
   filename: (req, file, cb) => {
     cb(
@@ -74,11 +74,10 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
 });
-// end image eupload
 
 router.post("/add_employee", upload.single("image"), (req, res) => {
   const sql = `INSERT INTO employee 
-    (name,email,password, address, salary,image, category_id) 
+    (name, email, password, salary, address, category_id, image) 
     VALUES (?)`;
   bcrypt.hash(req.body.password, 10, (err, hash) => {
     if (err) return res.json({ Status: false, Error: "Query Error" });
@@ -86,10 +85,10 @@ router.post("/add_employee", upload.single("image"), (req, res) => {
       req.body.name,
       req.body.email,
       hash,
-      req.body.address,
       req.body.salary,
-      req.file.filename,
+      req.body.address,
       req.body.category_id,
+      req.file.filename,
     ];
     db.query(sql, [values], (err, result) => {
       if (err) return res.json({ Status: false, Error: err });
