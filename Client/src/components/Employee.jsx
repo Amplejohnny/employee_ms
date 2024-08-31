@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const Employee = () => {
   const [employee, setEmployee] = useState([]);
-  // const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -18,6 +17,7 @@ const Employee = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
   const handleDelete = (id) => {
     axios
       .delete("http://localhost:8080/auth/delete_employee/" + id)

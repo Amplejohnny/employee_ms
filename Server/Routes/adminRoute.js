@@ -24,8 +24,13 @@ router.post("/adminregister", async (req, res) => {
   }
 });
 
-router.post("/adminlogin", (req, res) => {
+router.post("/admin_login", (req, res) => {
   const sql = "SELECT * from admin Where email = ? and password = ?";
+  if (!req.body.email || !req.body.password)
+    return res.json({
+      loginStatus: false,
+      Error: "Please fill all the fields",
+    });
   db.query(sql, [req.body.email, req.body.password], (err, result) => {
     if (err) return res.json({ loginStatus: false, Error: "Query error" });
     if (result.length > 0) {
@@ -157,8 +162,9 @@ router.get("/employee_count", (req, res) => {
   });
 });
 
+//salaryOfEmp
 router.get("/salary_count", (req, res) => {
-  const sql = "select sum(salary) as salaryOFEmp from employee";
+  const sql = "select sum(salary) as salary from employee";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Status: false, Error: "Query Error" + err });
     return res.json({ Status: true, Result: result });
@@ -173,9 +179,18 @@ router.get("/admin_records", (req, res) => {
   });
 });
 
-router.get("/logout", (req, res) => {
+router.get("/admin_logout", (req, res) => {
   res.clearCookie("token");
   return res.json({ Status: true });
+});
+
+// Admin timestamp
+router.get("/timestamp", (req, res) => {
+  const sql = "SELECT created_at as time from admin";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Status: false, Error: "Query Error" });
+    return res.json({ Status: true, Result: result });
+  });
 });
 
 export { router as adminRouter };

@@ -4,12 +4,17 @@ import axios from "axios";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
+  //For cookie access in axios from different domain
   axios.defaults.withCredentials = true;
+
   const handleLogout = () => {
-    axios.get("http://localhost:8080/auth/logout").then((result) => {
+    axios.get("http://localhost:8080/auth/admin_logout").then((result) => {
       if (result.data.Status) {
         localStorage.removeItem("valid");
         navigate("/");
+      } else {
+        alert("Something went wrong", console.log(result.data.Error));
       }
     });
   };

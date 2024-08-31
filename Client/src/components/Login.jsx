@@ -2,8 +2,8 @@ import { useState } from "react";
 import "./style.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import emailIcon from "../assets/envelope.svg";
-import passwordIcon from "../assets/lock.svg";
+import emailIcon from "../assets/mail-lucide.svg";
+import passwordIcon from "../assets/lock-lucide.svg";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -12,11 +12,14 @@ const Login = () => {
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  //For cookie access in axios from different domain
   axios.defaults.withCredentials = true;
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:8080/auth/adminlogin", values)
+      .post("http://localhost:8080/auth/admin_login", values)
       .then((result) => {
         if (result.data.loginStatus) {
           localStorage.setItem("valid", true);
@@ -31,7 +34,7 @@ const Login = () => {
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 loginPage">
       <div className="p-3 rounded w-25 border loginForm">
-        <div className="text-danger">{error && error}</div>
+        <div className="text-danger mb-2">{error && error}</div>
         <h2 className="mb-4">Welcome back</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3 flex-row d-flex">

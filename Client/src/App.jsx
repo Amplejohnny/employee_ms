@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
-import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Employee from "./components/Employee";
 import Category from "./components/Category";
@@ -18,10 +18,10 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Start />} />
-        <Route path="/adminlogin" element={<Login />} />
+        <Route path="/admin_login" element={<Login />} />
         <Route path="/employee_login" element={<EmployeeLogin />} />
         <Route path="/employee_detail/:id" element={<EmployeeDetail />} />
-        <Route path="/dashboard" element={<Dashboard />} >
+        <Route path="/dashboard" element={<Dashboard />}>
           <Route path="" element={<Home />}></Route>
           <Route path="/dashboard/employee" element={<Employee />}></Route>
           <Route path="/dashboard/category" element={<Category />}></Route>
