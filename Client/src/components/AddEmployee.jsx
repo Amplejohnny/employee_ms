@@ -12,7 +12,7 @@ const AddEmployee = () => {
     category_id: "",
     image: "",
   });
-  const [category, setCategory] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const AddEmployee = () => {
       .get("http://localhost:8080/auth/category")
       .then((result) => {
         if (result.data.Status) {
-          setCategory(result.data.Result);
+          setCategoryList(result.data.Result);
         } else {
           alert(result.data.Error);
         }
@@ -34,10 +34,10 @@ const AddEmployee = () => {
     formData.append("name", employee.name);
     formData.append("email", employee.email);
     formData.append("password", employee.password);
-    formData.append("address", employee.address);
     formData.append("salary", employee.salary);
+    formData.append("address", employee.address);
+    formData.append("category", employee.category_id);
     formData.append("image", employee.image);
-    formData.append("category_id", employee.category_id);
 
     axios
       .post("http://localhost:8080/auth/add_employee", formData)
@@ -48,7 +48,7 @@ const AddEmployee = () => {
           alert(result.data.Error);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("frontenderror", err));
   };
 
   return (
@@ -139,12 +139,8 @@ const AddEmployee = () => {
                 setEmployee({ ...employee, category_id: e.target.value })
               }
             >
-              {category.map((c) => {
-                return (
-                  <option key={c.id} value={c.id}>
-                    {c.name}
-                  </option>
-                );
+              {categoryList.map((c) => {
+                return <option key={c.id} value={c.id}>{c.name}</option>;
               })}
             </select>
           </div>

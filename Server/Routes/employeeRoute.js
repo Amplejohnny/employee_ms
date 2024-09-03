@@ -38,7 +38,7 @@ router.post("/employee_login", (req, res) => {
   });
 });
 
-router.get("/detail/:id", (req, res) => {
+router.get("/employee_details/:id", (req, res) => {
   const id = req.params.id;
   const sql = "SELECT * FROM employee where id = ?";
   db.query(sql, [id], (err, result) => {

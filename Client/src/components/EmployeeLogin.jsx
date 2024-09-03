@@ -11,16 +11,24 @@ const EmployeeLogin = () => {
     password: "",
   });
   const [error, setError] = useState(null);
+  const [agreeToTerms, setAgreeToTerms] = useState(false); // State to track checkbox
   const navigate = useNavigate();
+
+  // For cookie access in axios from different domain
   axios.defaults.withCredentials = true;
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!agreeToTerms) {
+      setError("You have to agree to the terms & conditions");
+      return;
+    }
     axios
       .post("http://localhost:8080/auth/employee_login", values)
       .then((result) => {
         if (result.data.loginStatus) {
           localStorage.setItem("valid", true);
-          navigate("/employee_detail/" + result.data.id);
+          navigate("/employee_details/" + result.data.id);
         } else {
           setError(result.data.Error);
         }
@@ -57,11 +65,20 @@ const EmployeeLogin = () => {
               className="form-control ms-2 shadow-none"
             />
           </div>
-          <button className="btn btn-success w-100 rounded-0 mb-2">
+          <button
+            type="submit"
+            className="btn btn-success w-100 rounded-0 mb-2"
+          >
             Log in
           </button>
           <div>
-            <input type="checkbox" name="tick" id="tick" className="me-2" />
+            <input
+              type="checkbox"
+              name="tick"
+              id="tick"
+              onChange={(e) => setAgreeToTerms(e.target.checked)}
+              className="me-2"
+            />
             <label htmlFor="password">Terms & conditions</label>
           </div>
         </form>

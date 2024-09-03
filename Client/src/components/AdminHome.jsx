@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const Home = () => {
+const AdminHome = () => {
   const [adminTotal, setAdminTotal] = useState(0);
   const [employeeTotal, setemployeeTotal] = useState(0);
   const [salaryTotal, setSalaryTotal] = useState(0);
@@ -115,8 +115,8 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {admins.map((a) => (
-              <tr key={a.email}>
+            {admins.map((a, index) => (
+              <tr key={index}>
                 <td>{a.email}</td>
                 <td>
                   <div className="d-flex justify-content-center">
@@ -132,4 +132,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AdminHome;

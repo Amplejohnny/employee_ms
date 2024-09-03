@@ -82,22 +82,26 @@ const upload = multer({
 
 router.post("/add_employee", upload.single("image"), (req, res) => {
   const sql = `INSERT INTO employee 
-    (name, email, password, salary, address, category_id, image) 
-    VALUES (?)`;
+      (name, email, password, salary, address, category, image) 
+      VALUES (?)`;
+
   bcrypt.hash(req.body.password, 10, (err, hash) => {
-    if (err) return res.json({ Status: false, Error: "Query Error" });
+    if (err) {
+      console.error("Password hashing error:", err);
+      return res.json({ Status: false, Error: "Query Error" });
+    }
     const values = [
       req.body.name,
       req.body.email,
-      hash,
+      (req.body.password = hash),
       req.body.salary,
       req.body.address,
-      req.body.category_id,
+      req.body.category,
       req.file.filename,
     ];
     db.query(sql, [values], (err, result) => {
       if (err) return res.json({ Status: false, Error: err });
-      return res.json({ Status: true });
+      return res.json({ Status: true, Data: result });
     });
   });
 });
@@ -162,7 +166,6 @@ router.get("/employee_count", (req, res) => {
   });
 });
 
-//salaryOfEmp
 router.get("/salary_count", (req, res) => {
   const sql = "select sum(salary) as salary from employee";
   db.query(sql, (err, result) => {

@@ -1,31 +1,44 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
+import AdminLogin from "./components/AdminLogin";
 import Dashboard from "./components/Dashboard";
-import Home from "./components/Home";
+import AdminHome from "./components/AdminHome";
 import Employee from "./components/Employee";
 import Category from "./components/Category";
-import Profile from "./components/Profile";
 import AddCategory from "./components/AddCategory";
 import AddEmployee from "./components/AddEmployee";
 import EditEmployee from "./components/EditEmployee";
 import EmployeeLogin from "./components/EmployeeLogin";
-import EmployeeDetail from "./components/EmployeeDetail";
+import EmployeeDetails from "./components/EmployeeDetails";
 import Start from "./components/Start";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Start />} />
-        <Route path="/admin_login" element={<Login />} />
+        <Route path="/admin_login" element={<AdminLogin />} />
         <Route path="/employee_login" element={<EmployeeLogin />} />
-        <Route path="/employee_detail/:id" element={<EmployeeDetail />} />
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="" element={<Home />}></Route>
+        <Route
+          path="/employee_details/:id"
+          element={
+            <PrivateRoute>
+              <EmployeeDetails />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
+          <Route path="" element={<AdminHome />}></Route>
           <Route path="/dashboard/employee" element={<Employee />}></Route>
           <Route path="/dashboard/category" element={<Category />}></Route>
-          <Route path="/dashboard/profile" element={<Profile />}></Route>
           <Route
             path="/dashboard/add_category"
             element={<AddCategory />}

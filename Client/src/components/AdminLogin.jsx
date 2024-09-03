@@ -5,19 +5,24 @@ import { useNavigate } from "react-router-dom";
 import emailIcon from "../assets/mail-lucide.svg";
 import passwordIcon from "../assets/lock-lucide.svg";
 
-const Login = () => {
+const AdminLogin = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
   const [error, setError] = useState(null);
+  const [agreeToTerms, setAgreeToTerms] = useState(false); // State to track checkbox
   const navigate = useNavigate();
 
-  //For cookie access in axios from different domain
+  // For cookie access in axios from different domain
   axios.defaults.withCredentials = true;
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!agreeToTerms) {
+      setError("You have to agree to the terms & conditions");
+      return;
+    }
     axios
       .post("http://localhost:8080/auth/admin_login", values)
       .then((result) => {
@@ -38,7 +43,7 @@ const Login = () => {
         <h2 className="mb-4">Welcome back</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3 flex-row d-flex">
-            <img src={emailIcon} alt="Avatar" className="ms-2" />
+            <img src={emailIcon} alt="Email icon" className="ms-2" />
             <input
               type="email"
               name="email"
@@ -49,7 +54,7 @@ const Login = () => {
             />
           </div>
           <div className="mb-3 flex-row d-flex">
-            <img src={passwordIcon} alt="Password avatar" className="ms-2" />
+            <img src={passwordIcon} alt="Password icon" className="ms-2" />
             <input
               type="password"
               name="password"
@@ -60,12 +65,22 @@ const Login = () => {
               className="form-control ms-2 shadow-none"
             />
           </div>
-          <button className="btn btn-success w-100 rounded-0 mb-2">
+          <button
+            type="submit"
+            className="btn btn-success w-100 rounded-0 mb-2"
+            // disabled={!agreeToTerms} Disable button if checkbox is not checked
+          >
             Log in
           </button>
           <div>
-            <input type="checkbox" name="tick" id="tick" className="me-2" />
-            <label htmlFor="password">Terms & conditions</label>
+            <input
+              type="checkbox"
+              name="tick"
+              id="tick"
+              onChange={(e) => setAgreeToTerms(e.target.checked)} // Update state on change
+              className="me-2"
+            />
+            <label htmlFor="tick">Terms & conditions</label>
           </div>
         </form>
       </div>
@@ -73,4 +88,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;
