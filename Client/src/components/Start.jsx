@@ -9,10 +9,10 @@ const Start = () => {
   axios.defaults.withCredentials = true;
   useEffect(() => {
     axios
-      .get("https://employee-ms-api.vercel.app/random")
-      .then((result) => {
-        if (result.data.Status) {
-          setRes(result.data.Result);
+      .get("https://employee-ms-api.vercel.app/auth/random")
+      .then((res) => {
+        if (res.data.Status) {
+          setRes(res.data.Result);
         }
       })
       .catch((err) => console.log(err));

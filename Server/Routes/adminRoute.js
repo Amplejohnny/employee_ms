@@ -197,7 +197,7 @@ router.get("/timestamp", (req, res) => {
 });
 
 router.get("/random", (req, res) => {
-  res.json({ random: Math.random() });
+  res.json({ Status: true, Result: "Hello world!" });
 });
 
 export { router as adminRouter };
