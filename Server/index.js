@@ -11,8 +11,8 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: ["https://employee-ms-ui.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: ["https://employee-ms-ui.vercel.app/"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
