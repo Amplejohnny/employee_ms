@@ -9,7 +9,7 @@ const Start = () => {
   axios.defaults.withCredentials = true;
   useEffect(() => {
     axios
-      .get("http://localhost:8080/verify")
+      .get("https://employee-ms-api.vercel.app/verify")
       .then((result) => {
         if (result.data.Status) {
           if (result.data.role === "admin") {

@@ -7,7 +7,7 @@ const Category = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/auth/category")
+      .get("https://employee-ms-api.vercel.app/auth/category")
       .then((result) => {
         if (result.data.Status) {
           setCategory(result.data.Result);

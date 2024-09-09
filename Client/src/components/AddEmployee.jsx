@@ -17,7 +17,7 @@ const AddEmployee = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/auth/category")
+      .get("https://employee-ms-api.vercel.app/auth/category")
       .then((result) => {
         if (result.data.Status) {
           setCategoryList(result.data.Result);
@@ -40,7 +40,7 @@ const AddEmployee = () => {
     formData.append("image", employee.image);
 
     axios
-      .post("http://localhost:8080/auth/add_employee", formData)
+      .post("https://employee-ms-api.vercel.app/auth/add_employee", formData)
       .then((result) => {
         if (result.data.Status) {
           navigate("/dashboard/employee");

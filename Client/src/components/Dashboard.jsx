@@ -9,7 +9,7 @@ const Dashboard = () => {
   axios.defaults.withCredentials = true;
 
   const handleLogout = () => {
-    axios.get("http://localhost:8080/auth/admin_logout").then((result) => {
+    axios.get("https://employee-ms-api.vercel.app/auth/admin_logout").then((result) => {
       if (result.data.Status) {
         localStorage.removeItem("valid");
         navigate("/");

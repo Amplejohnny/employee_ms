@@ -18,7 +18,7 @@ const AdminHome = () => {
 
   //Admin records
   const AdminRecords = () => {
-    axios.get("http://localhost:8080/auth/admin_records").then((result) => {
+    axios.get("https://employee-ms-api.vercel.app/auth/admin_records").then((result) => {
       if (result.data.Status) {
         setAdmins(result.data.Result);
       } else {
@@ -29,7 +29,7 @@ const AdminHome = () => {
 
   //Admin count
   const adminCount = () => {
-    axios.get("http://localhost:8080/auth/admin_count").then((result) => {
+    axios.get("https://employee-ms-api.vercel.app/auth/admin_count").then((result) => {
       if (result.data.Status) {
         setAdminTotal(result.data.Result[0].admin);
       } else {
@@ -40,7 +40,7 @@ const AdminHome = () => {
 
   //Employee count
   const employeeCount = () => {
-    axios.get("http://localhost:8080/auth/employee_count").then((result) => {
+    axios.get("https://employee-ms-api.vercel.app/auth/employee_count").then((result) => {
       if (result.data.Status) {
         setemployeeTotal(result.data.Result[0].employee);
       } else {
@@ -51,7 +51,7 @@ const AdminHome = () => {
 
   //Salary count
   const salaryCount = () => {
-    axios.get("http://localhost:8080/auth/salary_count").then((result) => {
+    axios.get("https://employee-ms-api.vercel.app/auth/salary_count").then((result) => {
       if (result.data.Status) {
         setSalaryTotal(result.data.Result[0].salary);
       } else {
@@ -62,7 +62,7 @@ const AdminHome = () => {
 
   //Admin timestamp
   const adminTimestamp = () => {
-    axios.get("http://localhost:8080/auth/timestamp").then((result) => {
+    axios.get("https://employee-ms-api.vercel.app/auth/timestamp").then((result) => {
       if (result.data.Status) {
         setAdminDateCreated(result.data.Result[0].time);
       } else {

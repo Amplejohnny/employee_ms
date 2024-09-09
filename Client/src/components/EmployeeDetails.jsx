@@ -8,7 +8,7 @@ const EmployeeDetails = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:8080/auth/employee_details/" + id)
+      .get("https://employee-ms-api.vercel.app/auth/employee_details/" + id)
       .then((result) => {
         setEmployee(result.data[0]);
       })
@@ -17,7 +17,7 @@ const EmployeeDetails = () => {
 
   const handleLogout = () => {
     axios
-      .get("http://localhost:8080/auth/employee_logout")
+      .get("https://employee-ms-api.vercel.app/auth/employee_logout")
       .then((result) => {
         if (result.data.Status) {
           localStorage.removeItem("valid");
@@ -71,7 +71,7 @@ const EmployeeDetails = () => {
           </div>
           <div className="d-flex justify-content-center flex-column align-items-center mt-3">
             <img
-              src={`http://localhost:8080/Images/` + employee.image}
+              src={`https://employee-ms-api.vercel.app/Images/` + employee.image}
               className="emp_det_image"
             />
             <div className="d-flex align-items-center flex-column mt-5">

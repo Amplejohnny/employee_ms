@@ -16,7 +16,7 @@ const EditEmployee = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/auth/category")
+      .get("https://employee-ms-api.vercel.app/auth/category")
       .then((result) => {
         if (result.data.Status) {
           setCategory(result.data.Result);
@@ -27,7 +27,7 @@ const EditEmployee = () => {
       .catch((err) => console.log(err));
 
     axios
-      .get("http://localhost:8080/auth/employee/" + id)
+      .get("https://employee-ms-api.vercel.app/auth/employee/" + id)
       .then((result) => {
         setEmployee({
           ...employee,
@@ -44,7 +44,7 @@ const EditEmployee = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:8080/auth/edit_employee/" + id, employee)
+      .put("https://employee-ms-api.vercel.app/auth/edit_employee/" + id, employee)
       .then((result) => {
         if (result.data.Status) {
           navigate("/dashboard/employee");

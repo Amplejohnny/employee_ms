@@ -7,7 +7,7 @@ const Employee = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/auth/employee")
+      .get("https://employee-ms-api.vercel.app/auth/employee")
       .then((result) => {
         if (result.data.Status) {
           setEmployee(result.data.Result);
@@ -20,7 +20,7 @@ const Employee = () => {
 
   const handleDelete = (id) => {
     axios
-      .delete("http://localhost:8080/auth/delete_employee/" + id)
+      .delete("https://employee-ms-api.vercel.app/auth/delete_employee/" + id)
       .then((result) => {
         if (result.data.Status) {
           window.location.reload();
@@ -55,7 +55,7 @@ const Employee = () => {
                 <td>{e.name}</td>
                 <td>
                   <img
-                    src={`http://localhost:8080/Images/` + e.image}
+                    src={`https://employee-ms-api.vercel.app/Images/` + e.image}
                     className="employee_image"
                   />
                 </td>

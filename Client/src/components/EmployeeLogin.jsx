@@ -24,7 +24,7 @@ const EmployeeLogin = () => {
       return;
     }
     axios
-      .post("http://localhost:8080/auth/employee_login", values)
+      .post("https://employee-ms-api.vercel.app/auth/employee_login", values)
       .then((result) => {
         if (result.data.loginStatus) {
           localStorage.setItem("valid", true);
