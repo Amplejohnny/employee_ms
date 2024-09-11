@@ -13,9 +13,9 @@ const Start = () => {
       .then((result) => {
         if (result.data.Status) {
           if (result.data.role === "admin") {
-            navigate("dashboard");
+            navigate("/dashboard");
           } else {
-            navigate("employee_details/" + result.data.id);
+            navigate("/employee_details/" + result.data.id);
           }
         }
       })
@@ -31,7 +31,7 @@ const Start = () => {
             type="button"
             className="btn btn-primary"
             onClick={() => {
-              navigate("employee_login");
+              navigate("/employee_login");
             }}
           >
             <img src={employeeIcon} alt="Employee" className="me-2" />
@@ -41,7 +41,7 @@ const Start = () => {
             type="button"
             className="btn btn-success"
             onClick={() => {
-              navigate("admin_login");
+              navigate("/admin_login");
             }}
           >
             <img src={adminIcon} alt="Admin" className="me-2" />
