@@ -18,7 +18,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Start />} />
-        <Route path="/admin_login" element={<AdminLogin />} />
+        <Route path="/auth/admin_login" element={<AdminLogin />} />
         <Route path="/employee_login" element={<EmployeeLogin />} />
         <Route
           path="/employee_details/:id"
