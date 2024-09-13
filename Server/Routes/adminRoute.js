@@ -1,5 +1,5 @@
 import express from "express";
-import db from "../utils/db.js";
+import { db } from "../utils/db.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import multer from "multer";
@@ -24,28 +24,49 @@ router.post("/adminregister", async (req, res) => {
   }
 });
 
-router.post("/admin_login", (req, res) => {
-  const sql = "SELECT * from admin Where email = ? and password = ?";
-  if (!req.body.email || !req.body.password)
+router.post("/admin_login", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
     return res.json({
       loginStatus: false,
       Error: "Please fill all the fields",
     });
-  db.query(sql, [req.body.email, req.body.password], (err, result) => {
-    if (err) return res.json({ loginStatus: false, Error: "Query error" });
-    if (result.length > 0) {
-      const email = result[0].email;
-      const token = jwt.sign(
-        { role: "admin", email: email, id: result[0].id },
-        process.env.ACCESS_TOKEN_SECRET_KEY,
-        { expiresIn: process.env.ACCESS_TOKEN_LIFE }
-      );
-      res.cookie("token", token);
-      return res.json({ loginStatus: true });
-    } else {
-      return res.json({ loginStatus: false, Error: "wrong email or password" });
+  }
+  try {
+    const admin = await db.admin.findFirst({
+      where: {
+        email: email,
+      },
+    });
+
+    if (!admin) {
+      return res.json({
+        loginStatus: false,
+        Error: "Wrong email or password",
+      });
     }
-  });
+
+    const isPasswordValid = password === admin.password; // This is a placeholder. Consider using bcrypt for real password comparison.
+
+    if (!isPasswordValid) {
+      return res.json({
+        loginStatus: false,
+        Error: "Wrong email or password",
+      });
+    }
+
+    const token = jwt.sign(
+      { role: "admin", email: admin.email, id: admin.id },
+      process.env.ACCESS_TOKEN_SECRET_KEY,
+      { expiresIn: process.env.ACCESS_TOKEN_LIFE }
+    );
+
+    res.cookie("token", token);
+    return res.json({ loginStatus: true });
+  } catch (err) {
+    console.error(err);
+    return res.json({ loginStatus: false, Error: "Query error" });
+  }
 });
 
 router.get("/category", (req, res) => {

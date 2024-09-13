@@ -19,12 +19,8 @@ const AdminLogin = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!agreeToTerms) {
-      setError("You have to agree to the terms & conditions");
-      return;
-    }
     axios
-      .post("https://employee-ms-api.vercel.app/auth/admin_login", values)
+      .post("http://localhost:8080/auth/admin_login", values)
       .then((result) => {
         if (result.data.loginStatus) {
           localStorage.setItem("valid", true);
@@ -68,7 +64,7 @@ const AdminLogin = () => {
           <button
             type="submit"
             className="btn btn-success w-100 rounded-0 mb-2"
-            // disabled={!agreeToTerms} Disable button if checkbox is not checked
+            disabled={!agreeToTerms} // Disable button if checkbox is not checked
           >
             Log in
           </button>

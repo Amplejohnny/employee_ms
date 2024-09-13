@@ -13,7 +13,7 @@ const port = process.env.PORT || 8080;
 const app = express();
 app.use(
   cors({
-    origin: ["https://employee-ms-ui.vercel.app"],
+    origin: ["http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
@@ -31,5 +31,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+  console.log(`Server is running on port ${port}`);
 });
