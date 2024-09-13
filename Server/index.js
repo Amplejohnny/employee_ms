@@ -14,8 +14,8 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(
   cors({
-    origin: ["https://employee-ms-ui.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    origin: ["*"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
