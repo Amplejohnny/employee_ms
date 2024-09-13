@@ -46,7 +46,7 @@ router.post("/admin_login", async (req, res) => {
       });
     }
 
-    const isPasswordValid = password === admin.password; // This is a placeholder. Consider using bcrypt for real password comparison.
+    const isPasswordValid = password === admin.password;
 
     if (!isPasswordValid) {
       return res.json({
@@ -68,6 +68,32 @@ router.post("/admin_login", async (req, res) => {
     return res.json({ loginStatus: false, Error: "Query error" });
   }
 });
+
+
+// router.post("/admin_login", (req, res) => {
+//   const sql = "SELECT * from admin Where email = ? and password = ?";
+//   if (!req.body.email || !req.body.password)
+//     return res.json({
+//       loginStatus: false,
+//       Error: "Please fill all the fields",
+//     });
+//   db.query(sql, [req.body.email, req.body.password], (err, result) => {
+//     if (err) return res.json({ loginStatus: false, Error: "Query error" });
+//     if (result.length > 0) {
+//       const email = result[0].email;
+//       const token = jwt.sign(
+//         { role: "admin", email: email, id: result[0].id },
+//         process.env.ACCESS_TOKEN_SECRET_KEY,
+//         { expiresIn: process.env.ACCESS_TOKEN_LIFE }
+//       );
+//       res.cookie("token", token);
+//       return res.json({ loginStatus: true });
+//     } else {
+//       return res.json({ loginStatus: false, Error: "wrong email or password" });
+//     }
+//   });
+// });
+
 
 router.get("/category", (req, res) => {
   const sql = "SELECT * FROM category";

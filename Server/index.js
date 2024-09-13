@@ -8,12 +8,12 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 dotenv.config();
 
-const port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 app.use(
   cors({
-    origin: ["https://employee-ms-ui.vercel.app", "http://localhost:5173"],
+    origin: ["https://employee-ms-ui.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
@@ -26,10 +26,6 @@ app.use("/auth", employeeRouter);
 app.use("/auth", verifyRouter);
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.send("Server is running");
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
