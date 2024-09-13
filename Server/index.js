@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use("/auth", adminRouter);
 // app.use("/auth", employeeRouter);
 // app.use("/auth", verifyRouter);
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 const router = express.Router();
 

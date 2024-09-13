@@ -1,9 +1,9 @@
 import express from "express";
 import { db } from "../utils/db.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import multer from "multer";
-import path from "path";
+// import bcrypt from "bcrypt";
+// import multer from "multer";
+// import path from "path";
 
 const router = express.Router();
 
