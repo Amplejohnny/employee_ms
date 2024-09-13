@@ -20,7 +20,7 @@ const AdminLogin = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("https://employee-ms-api.vercel.app/auth/admin_login", values)
+      .post("https://employee-ms-api-u0vc.onrender.com/auth/admin_login", values)
       .then((result) => {
         if (result.data.loginStatus) {
           localStorage.setItem("valid", true);
